@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Matrix } from '@/types';
+import { Card } from '@/components/ui/card';
 
 interface Props {
   costMatrix: Matrix;
@@ -160,64 +161,60 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
         />
       </div>
 
-      {/* Matrix */}
-      <div className="rounded-lg shadow-lg p-6 bg-white border">
-        <div className="overflow-x-auto overflow-y-auto max-h-[80vh]">
-          <div className="grid gap-4">
-            {/* Header */}
-            <div
-              className={`grid ${
-                costMatrix[0].length > 5
-                  ? `grid-cols-[auto_repeat(${costMatrix[0].length},minmax(100px,1fr))]`
-                  : 'grid-cols-5'
-              } gap-2`}
-            >
-              <div></div>
-              {costMatrix[0].map((_, job) => (
-                <div
-                  key={job}
-                  className="font-semibold text-center text-gray-600 bg-gray-200 p-2 rounded-lg shadow-sm"
-                >
-                  Công việc {job + 1}
-                </div>
-              ))}
-            </div>
-
-            {/* Rows */}
-            {costMatrix.map((row, worker) => (
+      <div className="overflow-x-auto overflow-y-auto">
+        <div className="grid gap-4">
+          <div
+            className="grid mx-auto"
+            style={{
+              gridTemplateColumns: `150px repeat(${costMatrix[0].length}, 80px)`,
+              gap: '8px',
+            }}
+          >
+            <div />
+            {costMatrix[0].map((_, job) => (
               <div
-                key={worker}
-                className={`grid ${
-                  row.length > 5
-                    ? `grid-cols-[auto_repeat(${row.length},minmax(100px,1fr))]`
-                    : 'grid-cols-5'
-                } gap-2 items-center`}
+                key={job}
+                className="font-semibold text-center text-gray-600 bg-gray-200 p-2 rounded-lg shadow-sm"
               >
-                <div className="font-medium text-gray-700 text-right pr-2">
-                  Nhân viên {worker + 1}
-                </div>
-                {row.map((cost, job) => {
-                  const isSelected = assignedJobs[worker] === job;
-                  const isActive = activeRow === worker && activeCol === job;
-
-                  return (
-                    <div
-                      key={job}
-                      className={`p-3 text-center border rounded-lg transition-all duration-300 ${
-                        isSelected
-                          ? 'bg-gradient-to-r from-green-400 to-green-500 text-white font-semibold shadow-md'
-                          : isActive
-                            ? 'bg-blue-300 text-white font-medium'
-                            : 'bg-gray-100 text-gray-800'
-                      }`}
-                    >
-                      {cost}
-                    </div>
-                  );
-                })}
+                Công việc {job + 1}
               </div>
             ))}
           </div>
+
+          {costMatrix.map((row, worker) => (
+            <div
+              key={worker}
+              className="grid mx-auto"
+              style={{
+                gridTemplateColumns: `150px repeat(${row.length}, 80px)`,
+                gap: '8px',
+                alignItems: 'center',
+              }}
+            >
+              <div className="font-medium text-gray-700 text-center pr-2">
+                Nhân viên {worker + 1}
+              </div>
+              {row.map((cost, job) => {
+                const isSelected = assignedJobs[worker] === job;
+                const isActive = activeRow === worker && activeCol === job;
+
+                return (
+                  <div
+                    key={job}
+                    className={`p-3 text-center border rounded-lg transition-all duration-300 ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-green-400 to-green-500 text-white font-semibold shadow-md'
+                        : isActive
+                          ? 'bg-blue-300 text-white font-medium'
+                          : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    {cost}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -240,7 +237,7 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
       </div>
 
       {/* Results */}
-      <div className="mt-6 p-6 bg-gray-100 border rounded-lg shadow-sm">
+      <div className="mt-6 p-6 bg-gray-100 border rounded-lg shadow-sm max-w-4xl mx-auto">
         <h2 className="font-bold text-xl text-gray-800">Kết quả phân công:</h2>
         {result.length > 0 ? (
           <>
