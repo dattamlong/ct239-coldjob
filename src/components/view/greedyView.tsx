@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Matrix } from '@/types';
-import { Card } from '@/components/ui/card';
 
 interface Props {
   costMatrix: Matrix;
@@ -49,7 +48,7 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
             selectedJob = job;
           }
           setActiveCol(job);
-          await delay(delayMs); // Áp dụng độ trễ người dùng đã chọn
+          await delay(delayMs);
         }
 
         if (selectedJob !== -1) {
@@ -78,7 +77,7 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
             selectedWorker = worker;
           }
           setActiveRow(worker);
-          await delay(delayMs); // Áp dụng độ trễ người dùng đã chọn
+          await delay(delayMs);
         }
 
         if (selectedWorker !== -1) {
@@ -89,7 +88,7 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
             cost: costMatrix[selectedWorker][job],
           });
           setAssignedJobs({ ...tempAssignedJobs });
-          await delay(delayMs); // Đổi màu ngay sau khi hoàn thành 1 cột
+          await delay(delayMs);
         }
       }
     }
@@ -117,7 +116,6 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
         Phân công công việc
       </h1>
 
-      {/* Mode Selector */}
       <div className="flex justify-center space-x-4">
         <label className="flex items-center space-x-2">
           <input
@@ -145,7 +143,6 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
         </label>
       </div>
 
-      {/* Delay Input */}
       <div className="flex items-center justify-center space-x-4">
         <label className="font-medium text-gray-700">Độ trễ (ms):</label>
         <Input
@@ -218,7 +215,6 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
         </div>
       </div>
 
-      {/* Buttons */}
       <div className="flex justify-center space-x-4">
         <Button
           className="px-6 py-2 text-lg font-semibold bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
@@ -236,8 +232,7 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
         </Button>
       </div>
 
-      {/* Results */}
-      <div className="mt-6 p-6 bg-gray-100 border rounded-lg shadow-sm max-w-4xl mx-auto">
+      <div className="mt-6 p-6 bg-gray-100 border rounded-lg shadow-sm max-w-[1000px] mx-auto">
         <h2 className="font-bold text-xl text-gray-800">Kết quả phân công:</h2>
         {result.length > 0 ? (
           <>
@@ -256,7 +251,7 @@ const GreedyView: React.FC<Props> = ({ costMatrix }) => {
           </>
         ) : (
           <p className="text-gray-500 mt-2">
-            Chưa có kết quả. Hãy nhấn "Bắt đầu" để bắt đầu phân công.
+            Chưa có kết quả. Hãy nhấn Bắt đầu để bắt đầu phân công.
           </p>
         )}
       </div>

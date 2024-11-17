@@ -4,6 +4,8 @@ import { MatrixDropzone } from '@/components/ui/matrixDropzone';
 import { useState } from 'react';
 import { Algo, Matrix } from '@/types';
 import GreedyView from '@/components/view/greedyView';
+import BruteForceView from '@/components/view/BruteForce';
+import BranchBoundView from '@/components/view/BranchBoundView';
 
 export default function Home() {
   const [matrix, setMatrix] = useState<Matrix>([]);
@@ -26,6 +28,12 @@ export default function Home() {
       <div className="mx-auto py-6">
         {isRun && algo === Algo.Greedy && matrix.length ? (
           <GreedyView costMatrix={matrix} />
+        ) : null}
+        {isRun && algo === Algo.BruteForce && matrix.length ? (
+          <BruteForceView costMatrix={matrix} />
+        ) : null}
+        {isRun && algo === Algo.BranchBound && matrix.length ? (
+          <BranchBoundView costMatrix={matrix} />
         ) : null}
       </div>
     </div>
